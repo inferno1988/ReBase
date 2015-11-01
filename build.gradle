@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'antlr'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+group = 'org.ifno_software'
+version = '1.0'
+
+repositories {
+    maven {
+        url uri("$projectDir/jar")
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile('org.antlr:antlr4-runtime:4+');
+    antlr "org.antlr:antlr4:4+"
+}
+
+generateGrammarSource {
+    outputDirectory = file("$projectDir/src/main/java/")
+}
+
+jar {
+    destinationDir = file("$projectDir/jar")
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri("$projectDir/jar"))
+        }
+    }
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
+}
