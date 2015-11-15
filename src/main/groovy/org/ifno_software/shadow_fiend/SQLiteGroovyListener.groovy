@@ -3,12 +3,24 @@ package org.ifno_software.shadow_fiend
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.TerminalNode
+import org.antlr.v4.runtime.misc.Interval;
+
+import static humanize.Humanize.camelize
 
 /**
  * Created by inferno on 11/1/15.
  */
-class SQLiteGroovyListener implements SQLiteListener{
-    boolean isColumnName
+class SQLiteGroovyListener implements SQLiteListener {
+    private final File outputDirectory
+    private File file
+    private String authority
+    private String packageName
+
+    public SQLiteGroovyListener(File outputDirectory, String authority, String packageName) {
+        this.outputDirectory = outputDirectory
+        this.authority = authority
+        this.packageName = packageName
+    }
 
     @Override
     void enterParse(SQLiteParser.ParseContext ctx) {
@@ -122,13 +134,34 @@ class SQLiteGroovyListener implements SQLiteListener{
 
     @Override
     void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        String tableName = ctx.table_name().getText().capitalize().concat("Entity");
-        println("public static abstract class " + tableName + " implements BaseColumns {");
+        String className = camelize(ctx.table_name().getText(), true).concat("Entity");
+
+        def outDir = [outputDirectory.absolutePath, packageName.replace(".", File.separator)].join(File.separator)
+        new File(outDir).mkdirs()
+        file = new File([outDir, className+".java"].join(File.separator));
+        if (file.exists()) {
+            file.delete();
+        }
+        file.createNewFile();
+        file << "package $packageName;\n\n"
+        file << "import android.net.Uri;\n" +
+                "import android.provider.BaseColumns;\n\n";
+
+
+        def string = "public final class " + className + " implements BaseColumns {\n"
+        file << string;
     }
 
     @Override
     void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        println("}")
+        int a = ctx.start.getStartIndex();
+        int b = ctx.stop.getStopIndex();
+        Interval interval = new Interval(a,b);
+        String script = ctx.start.getInputStream().getText(interval).replaceAll("\\r\\n|\\r|\\n", "\" +\n\"");
+        script << ";";
+        file << "       public static final String SQL_CREATE = \n\"" + script + "\";\n"
+        def string = "}\n"
+        file << string
     }
 
     @Override
@@ -366,21 +399,11 @@ class SQLiteGroovyListener implements SQLiteListener{
         if (ctx.column_name().any_name().keyword() != null)
             return;
 
-        def typeName = "Object";
-        switch (ctx.type_name().name(0).any_name().keyword().start.type) {
-            case SQLiteParser.K_INTEGER:
-                typeName = "int";
-                break;
-            case SQLiteParser.K_TEXT:
-                typeName = "String"
-                break;
-            case SQLiteParser.K_NUMERIC:
-                typeName = "bool"
-                break;
-        }
         def columnNameSimple = ctx.column_name().any_name().text
-        def columnNameCaps = columnNameSimple.toUpperCase()
-            println("       public static final $typeName COLUMN_NAME_$columnNameCaps = \"$columnNameSimple\";")
+        def columnNameCaps = columnNameSimple.toUpperCase();
+
+        def string = "       public static final String COLUMN_NAME_$columnNameCaps = \"$columnNameSimple\";\n"
+        file << string
     }
 
     @Override
@@ -701,8 +724,11 @@ class SQLiteGroovyListener implements SQLiteListener{
     @Override
     void enterTable_name(SQLiteParser.Table_nameContext ctx) {
         if (ctx.parent.ruleIndex == SQLiteParser.RULE_create_table_stmt) {
-            println("       public static final String TABLE_NAME = \"$ctx.text\";")
-            println("       public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + AUTHORITY + \"/$ctx.text\");")
+
+            def string = "       public static final String TABLE_NAME = \"$ctx.text\";\n"
+            def string1 = "       public static final Uri CONTENT_URI = Uri.parse(\"content://$authority/$ctx.text\");\n"
+            file << string;
+            file << string1;
         }
     }
 
