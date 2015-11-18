@@ -137,7 +137,6 @@ class ShadowFiendPlugin implements Plugin<Project> {
         task.outputDirectory = variantWorkDir
         variant.addJavaSourceFoldersToModel(variantWorkDir)
 
-        task.execute()
         project.logger.lifecycle(task.path)
     }
 
