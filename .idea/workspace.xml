@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="163a16b1-f0dd-4b1d-a55f-8a893f256c5b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendPlugin.groovy" afterPath="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendPlugin.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
     </list>
     <ignored path="android-db-contract-generator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -133,11 +133,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.2877907">
+              <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -155,11 +155,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShadowFiendPlugin.groovy" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShadowFiendPlugin.groovy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendPlugin.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65988374">
-              <caret line="139" column="18" selection-start-line="139" selection-start-column="18" selection-end-line="139" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="133" column="31" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#643#697#0" expanded="true" />
@@ -438,7 +438,7 @@
       <map>
         <entry key="$PROJECT_DIR$/../MathEx" value="1446406428000" />
         <entry key="$PROJECT_DIR$/../Neko" value="4269514452000" />
-        <entry key="$PROJECT_DIR$" value="2895763068126" />
+        <entry key="$PROJECT_DIR$" value="2895765317914" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -744,8 +744,8 @@
         <option value="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendTask.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/SQLiteGroovyListener.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendExtension.groovy" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendPlugin.groovy" />
+        <option value="$PROJECT_DIR$/build.gradle" />
       </list>
     </option>
   </component>
@@ -1776,14 +1776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/DefaultShadowFiendSourceSet.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1812,12 +1804,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/groovy/org/ifno_software/shadow_fiend/ShadowFiendPlugin.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65988374">
-          <caret line="139" column="18" selection-start-line="139" selection-start-column="18" selection-end-line="139" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="31" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#643#697#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2877907">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
