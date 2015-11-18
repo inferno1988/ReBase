@@ -25,10 +25,11 @@ class ShadowFiendTask extends SourceTask {
 
     @TaskAction
     def execute(IncrementalTaskInputs inputs) {
-        println("OPPA ====>>> execute() " + inputs.toString())
         final Set<File> sqlFiles = new HashSet<File>();
         final Set<File> sourceFiles = getSource().getFiles();
         final AtomicBoolean cleanRebuild = new AtomicBoolean();
+        //TODO: Implement extension properties changed handler
+        cleanRebuild.set(true);
         inputs.outOfDate(
                 new Action<InputFileDetails>() {
                     public void execute(InputFileDetails details) {
@@ -55,8 +56,6 @@ class ShadowFiendTask extends SourceTask {
             GFileUtils.cleanDirectory(outputDirectory);
             sqlFiles.addAll(sourceFiles);
         }
-        println(sourceFiles)
-        println(sqlFiles)
 
         sqlFiles.each { File file ->
             def lexer = new SQLiteLexer(new ANTLRInputStream(file.text))

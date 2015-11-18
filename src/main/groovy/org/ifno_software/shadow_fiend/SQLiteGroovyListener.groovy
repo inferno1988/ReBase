@@ -134,7 +134,8 @@ class SQLiteGroovyListener implements SQLiteListener {
 
     @Override
     void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        String className = camelize(ctx.table_name().getText(), true).concat("Entity");
+        def tableName = ctx.table_name().getText()
+        String className = camelize(tableName, true).concat("Entity");
 
         def outDir = [outputDirectory.absolutePath, packageName.replace(".", File.separator)].join(File.separator)
         new File(outDir).mkdirs()
@@ -150,6 +151,8 @@ class SQLiteGroovyListener implements SQLiteListener {
 
         def string = "public final class " + className + " implements BaseColumns {\n"
         file << string;
+        file << "    public static final String MIME_DIR = \"vnd.android.cursor.dir/${authority}.${tableName}\";\n" +
+                "    public static final String MIME_ROW = \"vnd.android.cursor.item/${authority}.${tableName}\";\n"
     }
 
     @Override
@@ -157,9 +160,9 @@ class SQLiteGroovyListener implements SQLiteListener {
         int a = ctx.start.getStartIndex();
         int b = ctx.stop.getStopIndex();
         Interval interval = new Interval(a,b);
-        String script = ctx.start.getInputStream().getText(interval).replaceAll("\\r\\n|\\r|\\n", "\" +\n\"");
+        String script = ctx.start.getInputStream().getText(interval).replaceAll("\\r\\n|\\r|\\n", "\" +\n        \"");
         script << ";";
-        file << "       public static final String SQL_CREATE = \n\"" + script + "\";\n"
+        file << "    public static final String SQL_CREATE = \n        \"" + script + "\";\n"
         def string = "}\n"
         file << string
     }
@@ -402,7 +405,7 @@ class SQLiteGroovyListener implements SQLiteListener {
         def columnNameSimple = ctx.column_name().any_name().text
         def columnNameCaps = columnNameSimple.toUpperCase();
 
-        def string = "       public static final String COLUMN_NAME_$columnNameCaps = \"$columnNameSimple\";\n"
+        def string = "    public static final String COLUMN_NAME_$columnNameCaps = \"$columnNameSimple\";\n"
         file << string
     }
 
@@ -725,8 +728,8 @@ class SQLiteGroovyListener implements SQLiteListener {
     void enterTable_name(SQLiteParser.Table_nameContext ctx) {
         if (ctx.parent.ruleIndex == SQLiteParser.RULE_create_table_stmt) {
 
-            def string = "       public static final String TABLE_NAME = \"$ctx.text\";\n"
-            def string1 = "       public static final Uri CONTENT_URI = Uri.parse(\"content://$authority/$ctx.text\");\n"
+            def string = "    public static final String TABLE_NAME = \"$ctx.text\";\n"
+            def string1 = "    public static final Uri CONTENT_URI = Uri.parse(\"content://$authority/$ctx.text\");\n"
             file << string;
             file << string1;
         }
