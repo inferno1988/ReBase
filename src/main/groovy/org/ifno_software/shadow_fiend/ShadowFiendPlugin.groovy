@@ -133,6 +133,7 @@ class ShadowFiendPlugin implements Plugin<Project> {
         println("sqlSources: " + sqlSources)
         task.source = sqlSources
         task.packageName = project.extensions.shadowFiend.packageName
+        task.authority = project.extensions.shadowFiend.authority
         task.outputDirectory = variantWorkDir
         variant.addJavaSourceFoldersToModel(variantWorkDir)
 

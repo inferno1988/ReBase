@@ -3,10 +3,10 @@
   <groupId>org.ifno_software</groupId>
   <artifactId>shadow-fiend</artifactId>
   <versioning>
-    <release>0.1</release>
+    <release>0.0.1-alpha</release>
     <versions>
-      <version>0.1</version>
+      <version>0.0.1-alpha</version>
     </versions>
-    <lastUpdated>20151115001430</lastUpdated>
+    <lastUpdated>20151118212428</lastUpdated>
   </versioning>
 </metadata>

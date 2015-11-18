@@ -21,6 +21,15 @@ package org.ifno_software.shadow_fiend;
  */
 public class ShadowFiendExtension {
     public String packageName = "com.example"
+    public String authority = packageName;
+
+    public String getAuthority() {
+        return authority
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority
+    }
 
     public void setPackageName(String packageName) {
         this.packageName = packageName
